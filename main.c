@@ -4,6 +4,7 @@ extern  int  get_valid_int();
 int main()
 {
 	printf("Hello, YusVel!!!\n");
-	get_valid_int();
+	int a = get_valid_int();
+	printf("You entered:%d", a);
 	return 0;
 }

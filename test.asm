@@ -19,6 +19,7 @@ get_valid_int:
 	mov rdx, error_massage_size
 	call stdout 
 	call stdin	; ввод сообщения 
+	mov rax, 100
 	ret
 	
 stdout:
