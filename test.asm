@@ -4,7 +4,7 @@ section .date
 	main_massage_size equ ($-main_massage)
 	error_massage db "Error! Enter N again: "
 	error_massage_size equ ($-error_massage)
-
+	temp dq 0
 section .bss
 	input_massage resb 32
 	input_massage_size equ ($-input_massage)
@@ -39,18 +39,21 @@ mov rbx, 1	; множитель : единицы, десятки, сотни, т
 xor rax, rax ; возвращаемый результат всегда в rax
 xor rcx, [input_bytes]; счетчик символов
 dec rcx ;  уменьшае счетчик на единицу так как в строке сиволы начинаются с нуля.
-xor rdx, rdx
+xor r8, r8
 
 finish_while:
-movzx rdx, byte [input_massage +rcx] ; помещаем в регист номер последнего символа в строке
-sub rdx, 48 ; В результате вычитания получаем реальное количество единиц, десятков, сотен.....
+movzx r8, byte [input_massage +rcx] ; помещаем в регист номер последнего символа в строке
+sub r8, 48 ; В результате вычитания получаем реальное количество единиц, десятков, сотен.....
 
-imul rdx, rbx ; 1* единицы, 10*десятки, 100*сотни ......
+imul r8, rbx ; 1* единицы, 10*десятки, 100*сотни ......
 
-add rax, rdx ; суммируем все 
+add rax, r8 ; суммируем все 
+
+
 dec rcx ; счетчик символа уменьшае на единицу
 imul rbx, 10 
-xor rdx, rdx
+
+xor r8, r8
 
 cmp rcx, 0
 jge finish_while
@@ -81,5 +84,5 @@ stdin:
 	syscall
 	dec rax ; если введен только 1 символ №10,то повторно запрашиваем ввод данных
 	jz get_valid_int
-	mov [input_bytes], qword rax
+	mov [input_bytes],  rax
 	ret
