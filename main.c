@@ -6,8 +6,8 @@ int main()
 	printf("Hello, YusVel!!!\n");
 	while(1)
 	{
-			int a = get_valid_int();
-			printf("You entered:%d\n", a);
+			long long a = get_valid_int();
+			printf("You entered:%lld\n", a);
 	}
 
 	return 0;
